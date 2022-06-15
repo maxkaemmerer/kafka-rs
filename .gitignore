@@ -1,0 +1,8 @@
+rust-consumer/target
+rust-consumer/rust-consumer
+go-consumer/go-consumer
+node-consumer/node_modules
+node-producer/node_modules
+node-consumer/src/consume.js
+node-producer/src/produce.js
+
