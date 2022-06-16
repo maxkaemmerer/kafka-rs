@@ -1,8 +1,11 @@
 rust-consumer/target
+rust-gateway/target
 rust-consumer/rust-consumer
+rust-gateway/rust-gateway
 go-consumer/go-consumer
 node-consumer/node_modules
 node-producer/node_modules
 node-consumer/src/consume.js
 node-producer/src/produce.js
+php-consumer/vendor
 

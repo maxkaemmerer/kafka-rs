@@ -14,6 +14,7 @@ services:
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
+    restart: always
     depends_on:
       - zookeeper
     healthcheck:
@@ -27,6 +28,17 @@ services:
     volumes:
       - ./node-consumer:/app
     command: node /app/src/consume.js
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
+  php-consumer:
+    build:
+      context: .docker/php
+    volumes:
+      - ./php-consumer:/app
+    command: php src/consume.php
+    restart: always
     depends_on:
       - zookeeper
       - kafka
@@ -36,6 +48,7 @@ services:
     volumes:
       - ./go-consumer:/app
     command: ./go-consumer -brokers="kafka:9092" -topics="test-topic" -group="go-test-group"
+    restart: always
     depends_on:
       - zookeeper
       - kafka  
@@ -45,6 +58,19 @@ services:
     volumes:
       - ./rust-consumer:/app
     command: ./rust-consumer --brokers="kafka:9092" --topics="test-topic" --group="rust-test-group"
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
+  rust-gateway:
+    build:
+      context: .docker/rust
+    volumes:
+      - ./rust-gateway:/app
+    command: ./rust-gateway --brokers="kafka:9092" --topics="test-topic" --group="rust-test-group"
+    ports:
+      - 7777:7777
+    restart: always
     depends_on:
       - zookeeper
       - kafka
@@ -53,6 +79,7 @@ services:
     volumes:
       - ./node-producer:/app
     command: node /app/src/produce.js
+    restart: always
     depends_on:
       - zookeeper
       - kafka

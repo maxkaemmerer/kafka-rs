@@ -1,0 +1,17 @@
+{
+    "name": "kaumlaut/php-consumer",
+    "autoload": {
+        "psr-4": {
+            "Kaumlaut\\PhpConsumer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Max Kaemmerer",
+            "email": "maxkaemmerer.hb@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-rdkafka": "*"
+    }
+}

@@ -1,6 +1,10 @@
 build-rust-consumer:
 	cd rust-consumer && cargo build --release --bin rust-consumer
 	cd rust-consumer && cp target/release/rust-consumer .
+	
+build-rust-gateway:
+	cd rust-gateway && cargo build --release --bin rust-gateway
+	cd rust-gateway && cp target/release/rust-gateway .
 
 build-go-consumer:
 	cd go-consumer && go build
@@ -17,9 +21,10 @@ down:
 up:
 	docker-compose up -d
 
-build: down build-go-consumer build-rust-consumer build-node-consumer build-node-producer
+build: down build-go-consumer build-rust-consumer build-node-consumer build-node-producer build-rust-gateway
 
 install:
 	npm install -g pnpm
 	cd node-producer && pnpm install
 	cd node-consumer && pnpm install
+	cd php-consumer && composer install

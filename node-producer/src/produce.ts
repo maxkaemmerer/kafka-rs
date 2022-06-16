@@ -1,11 +1,14 @@
 import { Kafka } from "kafkajs"
 
-const kafka = new Kafka({
-  clientId: 'node-gateway',
-  brokers: ['kafka:9092'],
-});
+
 
 (async () => {
+  await (new Promise((res) => {setTimeout(res, 15000)}));
+
+  const kafka = new Kafka({
+    clientId: 'node-gateway',
+    brokers: ['kafka:9092'],
+  });
   const producer = kafka.producer({
     retry: {
       retries: 15
@@ -20,7 +23,7 @@ const kafka = new Kafka({
     await producer.send({
       topic: 'test-topic',
       messages: [
-        { value: 'Hello KafkaJS user!' },
+        { value: Buffer.from('Hello KafkaJS user!') },
       ],
     });
   }
