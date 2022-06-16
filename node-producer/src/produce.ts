@@ -23,7 +23,7 @@ import { Kafka } from "kafkajs"
     await producer.send({
       topic: 'test-topic',
       messages: [
-        { value: Buffer.from('Hello KafkaJS user!') },
+        { value: Buffer.from('Hello Kafka Consumers!') },
       ],
     });
   }

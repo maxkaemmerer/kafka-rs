@@ -8,4 +8,8 @@ node-producer/node_modules
 node-consumer/src/consume.js
 node-producer/src/produce.js
 php-consumer/vendor
-
+kotlin-consumer/kotlin-consumer-1.0-SNAPSHOT.jar
+kotlin-consumer/kotlin-consumer-1.0-SNAPSHOT-all.jar
+kotlin-consumer/build
+kotlin-consumer/.idea
+kotlin-consumer/.gradle

@@ -55,7 +55,7 @@ func main() {
 	log.Println("Starting a new Sarama consumer")
 
 	if verbose {
-		sarama.Logger = log.New(os.Stdout, "[sarama] ", log.LstdFlags)
+		sarama.Logger = log.New(os.Stdout, "[sarama] ", 0)
 	}
 
 	version, err := sarama.ParseKafkaVersion(version)
@@ -184,7 +184,7 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 	for {
 		select {
 		case message := <-claim.Messages():
-			log.Printf("Message claimed: value = %s, timestamp = %v, topic = %s", string(message.Value), message.Timestamp, message.Topic)
+			log.Print(string(message.Value))
 			session.MarkMessage(message, "")
 
 		// Should return when `session.Context()` is done.

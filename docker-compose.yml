@@ -19,10 +19,36 @@ services:
       - zookeeper
     healthcheck:
       test:
-        ["CMD", "kafka-topics.sh", "--list", "--zookeeper", "zookeeper:2181"]
+        [
+          "CMD",
+          "kafka-topics.sh",
+          "--list",
+          "--zookeeper",
+          "zookeeper:2181"
+        ]
       interval: 30s
       timeout: 10s
       retries: 4
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+      JVM_OPTS: "-Xms32M -Xmx64M"
+      SERVER_SERVLET_CONTEXTPATH: "/"
+    depends_on:
+      - kafka
+      - zookeeper
+  kotlin-consumer:
+    image: openjdk:17
+    volumes:
+      - ./kotlin-consumer:/app
+    command: java -jar /app/kotlin-consumer-1.0-SNAPSHOT-all.jar
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
   node-consumer:
     image: node:17
     volumes:
@@ -51,7 +77,7 @@ services:
     restart: always
     depends_on:
       - zookeeper
-      - kafka  
+      - kafka
   rust-consumer:
     build:
       context: .docker/rust
