@@ -73,8 +73,6 @@ pub fn write_response(response: Response, mut stream: &TcpStream) {
         None => (),
     }
 
-    print!("{}", response_text);
-
     stream.write(response_text.as_bytes()).unwrap();
     stream.flush().unwrap();
 }

@@ -36,8 +36,6 @@ fn produce_message<'a, 'b>(
     topic: &'b str,
     brokers: Vec<String>,
 ) -> Result<(), KafkaError> {
-    println!("About to publish a message at {:?} to: {}", brokers, topic);
-
     // ~ create a producer. this is a relatively costly operation, so
     // you'll do this typically once in your application and re-use
     // the instance many times.
